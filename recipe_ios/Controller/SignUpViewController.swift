@@ -9,9 +9,21 @@ import UIKit
 import FirebaseAuth
 
 class SignUpViewController: UIViewController {
-    
+
     private lazy var customNavBar = NavBar(title: "")
-    
+
+    private let scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private let signupTextLabel: UILabel = {
         let label = UILabel()
         label.text = "Join us to start cooking"
@@ -21,7 +33,7 @@ class SignUpViewController: UIViewController {
         label.textColor = .blue
         return label
     }()
-    
+
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -29,7 +41,7 @@ class SignUpViewController: UIViewController {
         label.textColor = .blue
         return label
     }()
-    
+
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email"
@@ -37,7 +49,7 @@ class SignUpViewController: UIViewController {
         label.textColor = .blue
         return label
     }()
-    
+
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
@@ -45,29 +57,11 @@ class SignUpViewController: UIViewController {
         label.textColor = .blue
         return label
     }()
-    
-    private let nameTextField: CustomTextField = {
-        let tf = CustomTextField(
-            placeholder: "Full Name"
-        )
-        return tf
-    }()
 
-    private let emailTextField: CustomTextField = {
-        let tf = CustomTextField(
-            placeholder: "Email"
-        )
-        return tf
-    }()
-    
-    private let passwordTextField: CustomTextField = {
-        let tf = CustomTextField(
-            placeholder: "Password",
-            isSecureTextEntry: true
-        )
-        return tf
-    }()
-    
+    private let nameTextField = CustomTextField(placeholder: "Full Name")
+    private let emailTextField = CustomTextField(placeholder: "Email")
+    private let passwordTextField = CustomTextField(placeholder: "Password", isSecureTextEntry: true)
+
     private let signUpButton: CustomButton = {
         let btn = CustomButton(
             title: "Join us now",
@@ -79,7 +73,7 @@ class SignUpViewController: UIViewController {
         btn.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
         return btn
     }()
-    
+
     private let errorLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .red
@@ -89,28 +83,54 @@ class SignUpViewController: UIViewController {
         lbl.isHidden = true
         return lbl
     }()
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = false
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(customNavBar)
-        customNavBar.onBackTapped = { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
-        }
         setupLayout()
+        setupKeyboardObservers()
     }
 
     private func setupLayout() {
+        // NavBar
+        view.addSubview(customNavBar)
+        customNavBar.translatesAutoresizingMaskIntoConstraints = false
+        customNavBar.onBackTapped = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+
+        // ScrollView & ContentView
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+
+        NSLayoutConstraint.activate([
+            customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customNavBar.heightAnchor.constraint(equalToConstant: 60),
+
+            scrollView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+
         let stack = UIStackView(arrangedSubviews: [
             signupTextLabel,
             nameLabel,
@@ -126,17 +146,13 @@ class SignUpViewController: UIViewController {
         stack.spacing = 16
         stack.translatesAutoresizingMaskIntoConstraints = false
 
-        view.addSubview(stack)
+        contentView.addSubview(stack)
 
         NSLayoutConstraint.activate([
-            customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            customNavBar.heightAnchor.constraint(equalToConstant: 60),
-            
-            stack.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: 32),
-            stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 32),
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40)
         ])
     }
 
@@ -147,7 +163,7 @@ class SignUpViewController: UIViewController {
             showError("Please fill in all fields.")
             return
         }
-        
+
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
             if let error = error {
                 self?.showError("Sign up failed: \(error.localizedDescription)")
@@ -161,21 +177,52 @@ class SignUpViewController: UIViewController {
                     return
                 }
 
-                print("✅ Display name updated in Firebase Auth")
                 self?.errorLabel.isHidden = true
                 self?.navigateToHome()
             }
         }
     }
-    
+
     private func showError(_ message: String) {
         errorLabel.text = message
         errorLabel.isHidden = false
     }
-    
+
     private func navigateToHome() {
         let homeVC = BottomNavbarViewController()
         homeVC.modalPresentationStyle = .fullScreen
         present(homeVC, animated: true)
+    }
+
+    // MARK: - Keyboard handling (like SignIn)
+
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        scrollView.contentInset = .zero
+        scrollView.scrollIndicatorInsets = .zero
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
