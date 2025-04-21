@@ -22,6 +22,30 @@ class SignUpViewController: UIViewController {
         return label
     }()
     
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Name"
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.textColor = .blue
+        return label
+    }()
+    
+    private let emailLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Email"
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.textColor = .blue
+        return label
+    }()
+    
+    private let passwordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Password"
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.textColor = .blue
+        return label
+    }()
+    
     private let nameTextField: CustomTextField = {
         let tf = CustomTextField(
             placeholder: "Full Name"
@@ -89,8 +113,11 @@ class SignUpViewController: UIViewController {
     private func setupLayout() {
         let stack = UIStackView(arrangedSubviews: [
             signupTextLabel,
+            nameLabel,
             nameTextField,
+            emailLabel,
             emailTextField,
+            passwordLabel,
             passwordTextField,
             signUpButton,
             errorLabel

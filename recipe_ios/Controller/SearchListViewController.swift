@@ -41,7 +41,7 @@ class SearchListViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         
         view.addSubview(customNavBar)
         customNavBar.onBackTapped = { [weak self] in

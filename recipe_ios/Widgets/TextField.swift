@@ -17,6 +17,7 @@ class CustomTextField: UITextField {
          borderColor: UIColor = UIColor.black.withAlphaComponent(0.8),
          borderWidth: CGFloat = 1.0,
          cornerRadius: CGFloat = 8,
+         textColor: UIColor = .black,
          autocapitalization: UITextAutocapitalizationType = .none) {
         
         super.init(frame: .zero)
@@ -30,7 +31,8 @@ class CustomTextField: UITextField {
         self.layer.borderColor = borderColor.cgColor
         self.layer.borderWidth = borderWidth
         self.layer.cornerRadius = cornerRadius
-        
+        self.textColor = textColor
+
         self.heightAnchor.constraint(equalToConstant: height).isActive = true
     }
     
