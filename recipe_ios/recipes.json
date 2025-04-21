@@ -1,0 +1,90 @@
+[
+    {
+        "id": 1,
+        "name": "Caesar Salad",
+        "imageUrl": "caesar_salad.jpg",
+        "ingredients": ["Lettuce", "Croutons", "Caesar dressing"],
+        "steps": ["Toss ingredients together", "Serve chilled"],
+        "typeId": 1,
+        "isFavorite": false
+    },
+    {
+        "id": 2,
+        "name": "Nasi Lemak",
+        "imageUrl": "nasi_lemak.jpg",
+        "ingredients": ["Rice", "Coconut milk", "Pandan leaves", "Anchovies", "Cucumber", "Sambal", "Peanuts", "Egg"],
+        "steps": [
+            "Cook rice with coconut milk and pandan leaves",
+            "Fry anchovies and peanuts until crispy",
+            "Boil egg and slice cucumber",
+            "Serve with sambal and side ingredients"
+        ],
+        "typeId": 1,
+        "isFavorite": false
+    },
+    {
+        "id": 3,
+        "name": "Steak",
+        "imageUrl": "meat_steak.jpg",
+        "ingredients": ["Beef steak", "Salt", "Black pepper", "Butter", "Garlic", "Rosemary"],
+        "steps": [
+            "Season steak with salt and pepper",
+            "Sear in a hot pan with butter, garlic, and rosemary",
+            "Rest before slicing",
+            "Serve with sides"
+        ],
+        "typeId": 1,
+        "isFavorite": false
+    },
+    {
+        "id": 4,
+        "name": "Nasi Kerabu",
+        "imageUrl": "nasi_kerabu.jpg",
+        "ingredients": [
+            "Blue pea flower rice (or regular rice)",
+            "Fish (grilled or fried)",
+            "Kerabu salad (herbs, bean sprouts, long beans)",
+            "Coconut serunding (spiced shredded coconut)",
+            "Budu (fermented fish sauce) or salted fish sauce",
+            "Crackers (keropok)",
+            "Hard-boiled egg",
+            "Turmeric sauce (optional)"
+        ],
+        "steps": [
+            "Cook blue pea flower rice (soak rice with butterfly pea flower water for color)",
+            "Prepare kerabu salad by mixing herbs, sprouts, and long beans with lime dressing",
+            "Grill or fry fish until cooked",
+            "Toast grated coconut with spices for serunding",
+            "Arrange all components on a plate with budu sauce and crackers",
+            "Serve with hard-boiled egg and optional turmeric sauce"
+        ],
+        "typeId": 1,
+        "isFavorite": false
+    },
+    {
+        "id": 5,
+        "name": "Spaghetti Aglio Olio",
+        "imageUrl": "aglio_olio.jpg",
+        "ingredients": [
+            "Spaghetti",
+            "Garlic (thinly sliced)",
+            "Chili flakes",
+            "Olive oil",
+            "Parsley (chopped)",
+            "Salt",
+            "Black pepper",
+            "Parmesan cheese (optional)"
+        ],
+        "steps": [
+            "Cook spaghetti al dente, reserve some pasta water",
+            "Sauté garlic in olive oil until golden (avoid burning)",
+            "Add chili flakes for heat",
+            "Toss cooked spaghetti into the garlic oil, adding pasta water if needed",
+            "Season with salt, pepper, and chopped parsley",
+            "Serve with grated parmesan (optional)"
+        ],
+        "typeId": 1,
+        "isFavorite": false
+    }
+]
+
