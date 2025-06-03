@@ -49,7 +49,7 @@ class EditRecipeViewController: UIViewController, UIImagePickerControllerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
 
         view.addSubview(customNavBar)
         customNavBar.onBackTapped = { [weak self] in
@@ -75,10 +75,10 @@ class EditRecipeViewController: UIViewController, UIImagePickerControllerDelegat
         stepsStackView.spacing = 8
         stepsStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        let addIngredientButton = CustomButton(title: "Add Ingredient", backgroundColor: .blue, titleColor: .white, cornerRadius: 10, font: .systemFont(ofSize: 18, weight: .semibold))
+        let addIngredientButton = CustomButton(title: "Add Ingredient", backgroundColor: .blue, titleColor: .label, cornerRadius: 10, font: .systemFont(ofSize: 18, weight: .semibold))
         addIngredientButton.addTarget(self, action: #selector(addIngredientField), for: .touchUpInside)
 
-        let addStepButton = CustomButton(title: "Add Step", backgroundColor: .blue, titleColor: .white, cornerRadius: 10, font: .systemFont(ofSize: 18, weight: .semibold))
+        let addStepButton = CustomButton(title: "Add Step", backgroundColor: .blue, titleColor: .label, cornerRadius: 10, font: .systemFont(ofSize: 18, weight: .semibold))
         addStepButton.addTarget(self, action: #selector(addStepField), for: .touchUpInside)
 
         let saveButton = CustomButton(title: "Save Changes", backgroundColor: .white, titleColor: .blue, cornerRadius: 10, borderColor: .blue, borderWidth: 3, font: .systemFont(ofSize: 18, weight: .semibold))

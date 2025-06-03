@@ -48,7 +48,7 @@ class AddRecipeViewController: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(customNavBar)
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         customNavBar.onBackTapped = { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }

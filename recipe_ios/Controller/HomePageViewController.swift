@@ -18,7 +18,7 @@ class HomePageViewController: UIViewController {
         let label = UILabel()
         label.text = "Welcome"
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .label
         return label
     }()
 
@@ -26,7 +26,7 @@ class HomePageViewController: UIViewController {
         let label = UILabel()
         label.text = "User"
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .label
         return label
     }()
 
@@ -53,7 +53,7 @@ class HomePageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         recipeViewModel = RecipeViewModel(repository: RecipeRepository())
         setupUI()
         if let currentUser = Auth.auth().currentUser {

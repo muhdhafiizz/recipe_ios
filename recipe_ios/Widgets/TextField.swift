@@ -14,10 +14,10 @@ class CustomTextField: UITextField {
     init(placeholder: String,
          height: CGFloat = 50,
          isSecureTextEntry: Bool = false,
-         borderColor: UIColor = UIColor.black.withAlphaComponent(0.8),
+         borderColor: UIColor = .blue,
          borderWidth: CGFloat = 1.0,
          cornerRadius: CGFloat = 8,
-         textColor: UIColor = .black,
+         textColor: UIColor = .secondaryLabel,
          autocapitalization: UITextAutocapitalizationType = .none) {
         
         super.init(frame: .zero)

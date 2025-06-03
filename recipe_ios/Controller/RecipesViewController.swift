@@ -23,12 +23,12 @@ class RecipeWatchlistView: UIView, UICollectionViewDelegate, UICollectionViewDat
         view.isHidden = true
         
         let icon = UIImageView(image: UIImage(systemName: "face.smiling.inverse"))
-        icon.tintColor = .gray
+        icon.tintColor = .secondaryLabel
         icon.translatesAutoresizingMaskIntoConstraints = false
         
         let label = UILabel()
         label.text = "Your recipe is currently empty.\nPlease create a recipe."
-        label.textColor = .gray
+        label.textColor = .secondaryLabel
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 16)
@@ -67,6 +67,7 @@ class RecipeWatchlistView: UIView, UICollectionViewDelegate, UICollectionViewDat
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        backgroundColor = .systemBackground
     }
     
     required init?(coder: NSCoder) {

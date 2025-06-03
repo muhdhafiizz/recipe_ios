@@ -17,7 +17,7 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.layer.cornerRadius = 12
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .systemGray2
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowOpacity = 0.1
         contentView.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -26,7 +26,7 @@ class RecipesCollectionViewCell: UICollectionViewCell {
                 
         recipeImageView.contentMode = .scaleAspectFill
         recipeImageView.clipsToBounds = true
-        recipeImageView.layer.cornerRadius = 12  // Added corner radius to image
+        recipeImageView.layer.cornerRadius = 12
         recipeImageView.translatesAutoresizingMaskIntoConstraints = false
                 contentView.addSubview(recipeImageView)
         
@@ -57,15 +57,12 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         nameLabel.text = recipe.name
         
         if !recipe.imageUrl.isEmpty {
-            // 1. Remove file extension if present in your asset names
             let imageName = recipe.imageUrl.replacingOccurrences(of: ".jpg", with: "")
                                           .replacingOccurrences(of: ".png", with: "")
             
-            // 2. First try to load from Assets catalog
             if let assetImage = UIImage(named: imageName) {
                 recipeImageView.image = assetImage
             }
-            // 3. Fallback to Documents directory (for downloaded/saved images)
             else {
                 let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                 let fullImagePath = documentsURL.appendingPathComponent(recipe.imageUrl).path
@@ -74,7 +71,6 @@ class RecipesCollectionViewCell: UICollectionViewCell {
                    let documentImage = UIImage(contentsOfFile: fullImagePath) {
                     recipeImageView.image = documentImage
                 }
-                // 4. Final fallback to system image
                 else {
                     print("⚠️ Couldn't find image: \(imageName) in assets or documents")
                     recipeImageView.image = UIImage(systemName: "photo")

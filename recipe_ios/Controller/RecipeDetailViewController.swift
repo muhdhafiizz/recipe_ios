@@ -30,7 +30,7 @@ class RecipeDetailViewController: UIViewController {
     
     override func viewDidLoad() {
             super.viewDidLoad()
-            view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
             view.addSubview(customNavBar)
             customNavBar.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
@@ -48,7 +48,6 @@ class RecipeDetailViewController: UIViewController {
         }
 
     private func loadRecipeDetails() {
-        // Always get fresh data from view model
         guard let recipe = recipeViewModel.getAllRecipes().first(where: { $0.id == recipeId }) else {
             print("Recipe not found")
             navigationController?.popViewController(animated: true)
@@ -58,7 +57,6 @@ class RecipeDetailViewController: UIViewController {
         self.currentRecipe = recipe
         customNavBar.setTitle(recipe.name)
         
-        // Clear existing UI and rebuild
         view.subviews.filter { $0 != customNavBar }.forEach { $0.removeFromSuperview() }
         setupUI(with: recipe)
     }
